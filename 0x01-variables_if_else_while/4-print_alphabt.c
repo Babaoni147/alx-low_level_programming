@@ -12,7 +12,7 @@ int main(void)
 
 	for (c = 97; c < 123; c++)
 	{
-		if (c != 100 && c != 133)
+		if (c != 101 && c != 113)
 		{
 			putchar(c);
 		}
