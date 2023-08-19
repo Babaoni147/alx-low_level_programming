@@ -1,7 +1,3 @@
-/*
- * File: 101_natural.c
- * Athur: Obah Edwin
- */
 #include <stdio.h>
 /**
  * main - list of nutural numbers below 1024, multiple of 3 or 5.
@@ -9,13 +5,16 @@
  */
 int main(void)
 {
-int i;
-sum = 0;
-for (i = 0; i < 1024; 1++)
-{
-if ((i % 3) == 0 || (i % 5) == 0)
-sum += i;
-}
-printf("%n\n", sum);
+	int i, z = 0;
+
+	while (i < 1024)
+	{
+		if ((i % 3 == 0) || (i % 5 == 0))
+		{
+			z += i;
+		}
+		i++;
+	}
+	printf("%d\n", z);
 	return (0);
 }
