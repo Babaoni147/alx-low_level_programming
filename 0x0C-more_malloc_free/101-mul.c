@@ -90,7 +90,6 @@ int get_digit(char c)
  * @zeroes: The necessary number of leading zeroes
  * Description: If mult contains a non-digit, the function exit with
  * a status value of 98.
- * Return: 0 (Success)
  */
 void get_prod(char *prod, char *mult, int digit, int zeroes)
 {
@@ -126,6 +125,7 @@ void get_prod(char *prod, char *mult, int digit, int zeroes)
 		*prod = (num % 10) + '0';
 		tens = num / 10;
 	}
+
 	if (tens)
 		*prod = (tens % 10) + '0';
 }
@@ -135,7 +135,6 @@ void get_prod(char *prod, char *mult, int digit, int zeroes)
  * @final_prod: The buffer storing the running final product.
  * @next_prod: The next product to be added.
  * @next_len: The length of next_prod.
- * Retur: 0  (Success)
  */
 void add_nums(char *final_prod, char *next_prod, int next_len)
 {
@@ -201,6 +200,7 @@ int main(int argc, char *argv[])
 		printf("0\n");
 		return (0);
 	}
+
 	size = find_len(argv[1]) + find_len(argv[2]);
 	final_prod = create_xarray(size + 1);
 	next_prod = create_xarray(size + 1);
