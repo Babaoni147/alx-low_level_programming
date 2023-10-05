@@ -58,7 +58,7 @@ void stat_check(int open_fd, int fd, char *filename, char mode)
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
 		exit(98);
 	}
-	else if (mode == 'w' && open_fd == -1)
+	else if (mode == 'W' && open_fd == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
 		exit(99);
