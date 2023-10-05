@@ -10,17 +10,16 @@ void stat_check(int open_fd, int fd, char *filename, char mode);
 int main(int argc, char *argv[])
 {
 	int sor, r = 1024, destn, w, clo_sor, clo_destn;
-	unsigned int mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
 	char buff[1024];
 
 	if (argc != 3)
 	{
-		dprintf(STDERR_FILENO, "%s", "Usage: op file_from file to\n");
+		dprintf(STDERR_FILENO, "%s", "Usage: cp file_from file_to\n");
 		exit(97);
 	}
 	sor = open(argv[1], O_RDONLY);
 	stat_check(sor, -1, argv[1], 'O');
-	destn = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, mode);
+	destn = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	stat_check(destn, -1, argv[2], 'W');
 	while (r == 1024)
 	{
@@ -32,7 +31,7 @@ int main(int argc, char *argv[])
 			stat_check(-1, -1, argv[2], 'W');
 	}
 	clo_sor = close(sor);
-	stat_check(clo_sor, sor, NULL, 'O');
+	stat_check(clo_sor, sor, NULL, 'C');
 	clo_destn = close(destn);
 	stat_check(clo_destn, destn, NULL, 'C');
 	return (0);
