@@ -1,4 +1,5 @@
 #include "main.h"
+#include <elf.h>
 
 void check_elf(unsigned char *e_ident);
 void magic(unsigned char *e_ident);
