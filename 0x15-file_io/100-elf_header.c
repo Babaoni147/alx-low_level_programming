@@ -33,11 +33,12 @@ void check_for_elf(unsigned char *e_ident)
 		    e_ident[idx] != 'L' &&
 		    e_ident[idx] != 'F')
 		{
-			dprintf(STDERR_FILENO, "%s", "Error: NOT AN ELF FILE\n");
+			dprintf(STDERR_FILENO, "Error: Not an ELF file\n");
 			exit(98);
 		}
 	}
 }
+
 
 /**
  * magic - Function that print the magic numbers of an ELF header
@@ -118,18 +119,21 @@ void data(unsigned char *e_ident)
  */
 void version(unsigned char *e_ident)
 {
-	printf(" Version: %d", e_ident[EI_VERSION]);
+	printf(" Version: %d",
+			  e_ident[EI_VERSION]);
 
 	switch (e_ident[EI_VERSION])
 	{
 	case EV_CURRENT:
-		printf("( current)\n");
+		printf(" (current)\n");
 		break;
 	default:
 		printf("\n");
 		break;
 	}
 }
+
+
 
 /**
  * osabi - Function that prints the OS/ABI of EFL file in elf.h
@@ -296,7 +300,7 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	}
 
 	check_for_elf(header->e_ident);
-	printf("ELF Heeader:\n");
+	printf("ELF Header:\n");
 	magic(header->e_ident);
 	class(header->e_ident);
 	data(header->e_ident);
@@ -310,3 +314,4 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	elf_close(op);
 	return (0);
 }
+
