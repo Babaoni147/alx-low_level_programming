@@ -6,23 +6,23 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-void check_for_elf(unsigned char *e_ident);
-void magic(unsigned char *e_ident);
-void class(unsigned char *e_ident);
-void data(unsigned char *e_ident);
-void version(unsigned char *e_ident);
-void abi(unsigned char *e_ident);
-void osabi(unsigned char *e_ident);
-void type(unsigned int e_type, unsigned char *e_ident);
-void entry(unsigned long int e_entry, unsigned char *e_ident);
-void elf_close(int elf_fd);
+void check_elf(unsigned char *e_ident);
+void print_magic(unsigned char *e_ident);
+void print_class(unsigned char *e_ident);
+void print_data(unsigned char *e_ident);
+void print_version(unsigned char *e_ident);
+void print_abi(unsigned char *e_ident);
+void print_osabi(unsigned char *e_ident);
+void print_type(unsigned int e_type, unsigned char *e_ident);
+void print_entry(unsigned long int e_entry, unsigned char *e_ident);
+void close_elf(int elf);
 
 /**
- * check_for_elf - Function that checks for elf files
+ * check_elf - Function that checks for elf files
  * @e_ident: Pointer to elf file
  * Return: 0 (Success) else exit code 98
  */
-void check_for_elf(unsigned char *e_ident)
+void check_elf(unsigned char *e_ident)
 {
 	int idx;
 
@@ -41,11 +41,11 @@ void check_for_elf(unsigned char *e_ident)
 
 
 /**
- * magic - Function that print the magic numbers of an ELF header
+ * print_magic - Function that print the magic numbers of an ELF header
  * @e_ident: Pointer to elf file
  * Return: 0 (Success)
  */
-void magic(unsigned char *e_ident)
+void print_magic(unsigned char *e_ident)
 {
 	int idx;
 
@@ -63,11 +63,11 @@ void magic(unsigned char *e_ident)
 }
 
 /**
- * class - Function that prints the class of an ELF file in elf.
+ * print_class - Function that prints the class of an ELF file in elf.
  * @e_ident: pointer to elf file
  * Return: 0 (Success)
  */
-void class(unsigned char *e_ident)
+void print_class(unsigned char *e_ident)
 {
 	printf(" Class: ");
 
@@ -88,11 +88,11 @@ void class(unsigned char *e_ident)
 }
 
 /**
- * data - function that prints the data of an ELF file in elf.h
+ * print_data - function that prints the data of an ELF file in elf.h
  * @e_ident: Pointer to elf file
  * Return: 0 (Success)
  */
-void data(unsigned char *e_ident)
+void print_data(unsigned char *e_ident)
 {
 	printf(" Data: ");
 
@@ -113,11 +113,11 @@ void data(unsigned char *e_ident)
 }
 
 /**
- * version - Function that print the version of an ELF file in elf.h
+ * print_version - Function that print the version of an ELF file in elf.h
  * @e_ident: Pointer to elf file
  * Return: 0 (Success)
  */
-void version(unsigned char *e_ident)
+void print_version(unsigned char *e_ident)
 {
 	printf(" Version: %d",
 			  e_ident[EI_VERSION]);
@@ -136,11 +136,11 @@ void version(unsigned char *e_ident)
 
 
 /**
- * osabi - Function that prints the OS/ABI of EFL file in elf.h
+ * print_osabi - Function that prints the OS/ABI of EFL file in elf.h
  * @e_ident: Pointer to elf file
  * Return: 0 (Success)
  */
-void osabi(unsigned char *e_ident)
+void print_osabi(unsigned char *e_ident)
 {
 	printf(" OS/ABI: ");
 
@@ -182,12 +182,12 @@ void osabi(unsigned char *e_ident)
 }
 
 /**
- * type - Function that print the type of an ELF file in elf.h
+ * print_type - Function that print the type of an ELF file in elf.h
  * @e_type: The elf file type
  * @e_ident: Pointer to elf file
  * Return: 0 (Success)
  */
-void type(unsigned int e_type, unsigned char *e_ident)
+void print_type(unsigned int e_type, unsigned char *e_ident)
 {
 	if (e_ident[EI_DATA] == ELFDATA2MSB)
 		e_type >>= 8;
@@ -217,23 +217,23 @@ void type(unsigned int e_type, unsigned char *e_ident)
 }
 
 /**
- * abi - function that prints the ABI version of an ELF file in elf.h
+ * print_abi - function that prints the ABI version of an ELF file in elf.h
  * @e_ident: Pointer to elf file
  * Return: 0 (Success)
  */
-void abi(unsigned char *e_ident)
+void print_abi(unsigned char *e_ident)
 {
 	printf(" ABI Version: %d\n",
 		e_ident[EI_ABIVERSION]);
 }
 
 /**
- * entry - function that print the entry point of an ELF file in elf.h
+ * print_entry - function that print the entry point of an ELF file in elf.h
  * @e_entry: The address of the ELE entey point
  * @e_ident: Pointer to elf file
  * Return: 0 (Success)
  */
-void entry(unsigned long int e_entry, unsigned char *e_ident)
+void print_entry(unsigned long int e_entry, unsigned char *e_ident)
 {
 	printf(" Entry point addresss: ");
 
@@ -252,15 +252,15 @@ void entry(unsigned long int e_entry, unsigned char *e_ident)
 }
 
 /**
- * elf_close - Function that close an ELF file
+ * close_elf - Function that close an ELF file
  * @elf_fd: File descriptor of the ELF file
  * Return: 0 (Success)
  */
-void elf_close(int elf_fd)
+void close_elf(int elf)
 {
-	if (close(elf_fd) == -1)
+	if (close(elf) == -1)
 	{
-		dprintf(STDERR_FILENO, "ERROR: Can't close fd %d\n", elf_fd);
+		dprintf(STDERR_FILENO, "ERROR: Can't close fd %d\n", elf);
 		exit(98);
 	}
 }
@@ -286,7 +286,7 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	header = malloc(sizeof(Elf64_Ehdr));
 	if (header == NULL)
 	{
-		elf_close(op);
+		close_elf(op);
 		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
 		exit(98);
 	}
@@ -294,24 +294,24 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	if (rd == -1)
 	{
 		free(header);
-		elf_close(op);
+		close_elf(op);
 		dprintf(STDERR_FILENO, "Error: `%s`: No such file\n", argv[1]);
 		exit(98);
 	}
 
-	check_for_elf(header->e_ident);
+	check_elf(header->e_ident);
 	printf("ELF Header:\n");
-	magic(header->e_ident);
-	class(header->e_ident);
-	data(header->e_ident);
-	version(header->e_ident);
-	osabi(header->e_ident);
-	abi(header->e_ident);
-	type(header->e_type, header->e_ident);
-	entry(header->e_entry, header->e_ident);
+	print_magic(header->e_ident);
+	print_class(header->e_ident);
+	print_data(header->e_ident);
+	print_version(header->e_ident);
+	print_osabi(header->e_ident);
+	print_abi(header->e_ident);
+	print_type(header->e_type, header->e_ident);
+	print_entry(header->e_entry, header->e_ident);
 
 	free(header);
-	elf_close(op);
+	close_elf(op);
 	return (0);
 }
 
