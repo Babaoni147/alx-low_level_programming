@@ -43,7 +43,6 @@ void check_elf(unsigned char *e_ident)
 /**
  * print_magic - Function that print the magic numbers of an ELF header
  * @e_ident: Pointer to elf file
- * Return: 0 (Success)
  */
 void print_magic(unsigned char *e_ident)
 {
@@ -65,7 +64,6 @@ void print_magic(unsigned char *e_ident)
 /**
  * print_class - Function that prints the class of an ELF file in elf.
  * @e_ident: pointer to elf file
- * Return: 0 (Success)
  */
 void print_class(unsigned char *e_ident)
 {
@@ -90,7 +88,6 @@ void print_class(unsigned char *e_ident)
 /**
  * print_data - function that prints the data of an ELF file in elf.h
  * @e_ident: Pointer to elf file
- * Return: 0 (Success)
  */
 void print_data(unsigned char *e_ident)
 {
@@ -115,7 +112,6 @@ void print_data(unsigned char *e_ident)
 /**
  * print_version - Function that print the version of an ELF file in elf.h
  * @e_ident: Pointer to elf file
- * Return: 0 (Success)
  */
 void print_version(unsigned char *e_ident)
 {
@@ -138,7 +134,6 @@ void print_version(unsigned char *e_ident)
 /**
  * print_osabi - Function that prints the OS/ABI of EFL file in elf.h
  * @e_ident: Pointer to elf file
- * Return: 0 (Success)
  */
 void print_osabi(unsigned char *e_ident)
 {
@@ -185,7 +180,6 @@ void print_osabi(unsigned char *e_ident)
  * print_type - Function that print the type of an ELF file in elf.h
  * @e_type: The elf file type
  * @e_ident: Pointer to elf file
- * Return: 0 (Success)
  */
 void print_type(unsigned int e_type, unsigned char *e_ident)
 {
@@ -219,7 +213,6 @@ void print_type(unsigned int e_type, unsigned char *e_ident)
 /**
  * print_abi - function that prints the ABI version of an ELF file in elf.h
  * @e_ident: Pointer to elf file
- * Return: 0 (Success)
  */
 void print_abi(unsigned char *e_ident)
 {
@@ -231,7 +224,6 @@ void print_abi(unsigned char *e_ident)
  * print_entry - function that print the entry point of an ELF file in elf.h
  * @e_entry: The address of the ELE entey point
  * @e_ident: Pointer to elf file
- * Return: 0 (Success)
  */
 void print_entry(unsigned long int e_entry, unsigned char *e_ident)
 {
@@ -253,8 +245,7 @@ void print_entry(unsigned long int e_entry, unsigned char *e_ident)
 
 /**
  * close_elf - Function that close an ELF file
- * @elf_fd: File descriptor of the ELF file
- * Return: 0 (Success)
+ * @elf: File descriptor of the ELF file
  */
 void close_elf(int elf)
 {
